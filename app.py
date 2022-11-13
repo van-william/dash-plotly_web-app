@@ -4,8 +4,8 @@
 from dash import Dash, html, dcc
 import plotly.express as px
 import pandas as pd
-#import gunicorn
-#from whitenoise import WhiteNoise
+import gunicorn
+from whitenoise import WhiteNoise
 
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
