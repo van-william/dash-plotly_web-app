@@ -4,12 +4,16 @@
 from dash import Dash, html, dcc
 import plotly.express as px
 import pandas as pd
-import gunicorn
-from whitenoise import WhiteNoise
+#import gunicorn
+#from whitenoise import WhiteNoise
 
-app = Dash(__name__)
+
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+
+app = Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
-server.wsgi_app = WhiteNoise(server.wsgi_app, root='static/') 
+
+#server.wsgi_app = WhiteNoise(server.wsgi_app, root='static/') 
 
 # assume you have a "long-form" data frame
 # see https://plotly.com/python/px-arguments/ for more options
