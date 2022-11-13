@@ -19,12 +19,19 @@ server = app.server
 # see https://plotly.com/python/px-arguments/ for more options
 df = pd.read_json("https://data.usaid.gov/resource/a3rc-nmf6.json")
 
-fig = px.histogram(df, x="country", y=["line_item_value"],
-        barmode="stack", title='2020 Line Item Costs by Country',
+fig_country_value = px.histogram(df, x="country", y=["line_item_value"],
+        barmode="stack", title='2020 Line Item Costs by Country ($)',
         text_auto='.1s')
+fig_country_value.update_layout(xaxis={'categoryorder':'total descending'})
+fig_country_value.update_layout(showlegend=False)
 
-fig.update_layout(xaxis={'categoryorder':'total descending'})
-fig.update_layout(showlegend=False)
+fig_molecule_type = px.histogram(df, x="molecule_test_type", y=["line_item_value"],
+        barmode="stack", title='2020 Line Item Costs by Molecule Test Type ($)',
+        text_auto='.1s')
+fig_molecule_type.update_layout(xaxis={'categoryorder':'total descending'})
+fig_molecule_type.update_layout(showlegend=False)
+
+
 app.layout = html.Div(children=[
     html.H1(children='USAID Summary Dashboard 2020'),
     html.H2(children='''
@@ -36,8 +43,11 @@ app.layout = html.Div(children=[
 
     dcc.Graph(
         id='value of shipments by country',
-        figure= fig
-
+        figure= fig_country_value
+    ),
+    dcc.Graph(
+        id='value of shipments by molecule type',
+        fig=fig_molecule_type
     )
 ])
 
