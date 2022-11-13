@@ -19,9 +19,9 @@ server = app.server
 # see https://plotly.com/python/px-arguments/ for more options
 df = pd.read_json("https://data.usaid.gov/resource/a3rc-nmf6.json")
 
-fig = px.histogram(df, x="country", y=["line_item_value"],
-    barmode="stack", title='2020 Line Item Costs by Country',
-    text_auto='.1s').update_xaxes(categoryorder="total descending").layout.update(showlegend=False)
+# fig = px.histogram(df, x="country", y=["line_item_value"],
+#     barmode="stack", title='2020 Line Item Costs by Country',
+#     text_auto='.1s').update_xaxes(categoryorder="total descending").layout.update(showlegend=False)
 
 app.layout = html.Div(children=[
     html.H1(children='USAID Summary Dashboard 2020'),
@@ -34,7 +34,8 @@ app.layout = html.Div(children=[
 
     dcc.Graph(
         id='value of shipments by country',
-        figure=fig
+        figure= px.histogram(df, x="country", y=["line_item_value"], title='2020 Line Item Costs by Country',text_auto='.1s')
+
     )
 ])
 
