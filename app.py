@@ -8,10 +8,13 @@ import pandas as pd
 #from whitenoise import WhiteNoise
 
 
-app = Dash(__name__)
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+
+app = Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 
-#server.wsgi_app = WhiteNoise(server.wsgi_app, root='static/') 
+server.wsgi_app = WhiteNoise(server.wsgi_app, root='static/') 
+
 
 df = pd.read_json("https://data.usaid.gov/resource/a3rc-nmf6.json")
 
@@ -43,7 +46,7 @@ app.layout = html.Div(children=[
     ),
     dcc.Graph(
         id='value of shipments by molecule type',
-        fig=fig_molecule_type
+        figure=fig_molecule_type
     )
 ])
 
