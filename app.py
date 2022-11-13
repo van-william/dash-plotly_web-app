@@ -4,9 +4,12 @@
 from dash import Dash, html, dcc
 import plotly.express as px
 import pandas as pd
+import gunicorn
+from whitenoise import WhiteNoise
 
 app = Dash(__name__)
 server = app.server
+server.wsgi_app = WhiteNoise(server.wsgi_app, root='static/') 
 
 # assume you have a "long-form" data frame
 # see https://plotly.com/python/px-arguments/ for more options
@@ -31,5 +34,4 @@ app.layout = html.Div(children=[
     )
 ])
 
-if __name__ == '__main__':
-    app.run_server(debug=True)
+if __name__ == "__main__": app.run_server(debug=False, host='0.0.0.0', port=8050)
